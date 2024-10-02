@@ -1,4 +1,6 @@
 package se.kth.faisalo.webappdemo2.bo;
 
-public class itemHandler {
+public class Handler {
+
+
 }
