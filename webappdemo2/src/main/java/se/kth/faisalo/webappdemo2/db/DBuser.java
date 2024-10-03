@@ -12,6 +12,10 @@ import java.util.List;
 
 public class DBuser extends User {
 
+    public DBuser(String username, String password, int userId) {
+        super(username, password, userId);
+    }
+
     public static List<User> ListUsers() {
         List<User> users = new ArrayList<User>();
         try {
@@ -21,7 +25,8 @@ public class DBuser extends User {
             while (set.next()) {
                 String username = set.getString("username");
                 String password = set.getString("password");
-                users.add(new DBuser(username, password));
+                int userId = set.getInt("iduser");
+                users.add(new DBuser(username, password, userId));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -29,26 +34,15 @@ public class DBuser extends User {
         return users;
     }
 
-    public static boolean CheckUser(String username, String password) {
-        List<User> users = ListUsers();
+    public static int CheckUser(String username, String password) {
+        List<User> users = ListUsers();  // Assuming ListUsers fetches all users
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return true;
+                return user.getUserId();  // Return the userId if the username and password match
             }
         }
-        return false;
+        return -1;  // Return -1 if no match is found
+    }
     }
 
 
-
-
-
-
-
-
-
-
-    public DBuser(String username, String password) {
-        super(username, password);
-    }
-}

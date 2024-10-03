@@ -1,28 +1,31 @@
 package se.kth.faisalo.webappdemo2.ui;
 
+import se.kth.faisalo.webappdemo2.bo.Item;
+
+import java.util.List;
+
 public class CartInfo {
-    private int idcart;
-    private int iduser;
+    private int idCart;
+    private List<ItemInfo> cartList;
 
-    public CartInfo(int idcart, int iduser) {
-        this.idcart = idcart;
-        this.iduser = iduser;
+    public CartInfo(int idCart, List<ItemInfo> cartList) {
+        this.idCart = idCart;
+        this.cartList = cartList;
     }
 
-
-    public int getIdcart() {
-        return idcart;
+    public int getIdCart() {
+        return idCart;
     }
 
-    public void setIdcart(int idcart) {
-        this.idcart = idcart;
+    public void setIdCart(int idCart) {
+        this.idCart = idCart;
     }
 
-    public int getIduser() {
-        return iduser;
+    public List<ItemInfo> getCartList() {
+        return cartList;
     }
 
-    public void setIduser(int iduser) {
-        this.iduser = iduser;
+    public void setCartList(List<ItemInfo> cartList) {
+        this.cartList = cartList;
     }
 }

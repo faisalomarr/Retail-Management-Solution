@@ -1,18 +1,14 @@
-package se.kth.faisalo.webappdemo2.bo;
+package se.kth.faisalo.webappdemo2.ui;
 
-import se.kth.faisalo.webappdemo2.db.DBuser;
-
-import java.util.List;
-
-public class User {
+public class UserInfo {
     private String username;
     private String password;
     private int userId;
 
-    public User(String username, String password, int userId) {
-        this.userId = userId;
+    public UserInfo(String username, String password, int userId) {
         this.username = username;
         this.password = password;
+        this.userId= userId;
     }
 
     public String getUsername() {
@@ -37,13 +33,5 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    static public List<User> getUsers() {
-        return DBuser.ListUsers();
-    }
-
-    static public boolean checkUser(String username, String password) {
-        return DBuser.checkUser(username, password);
     }
 }

@@ -1,4 +1,4 @@
-/*package se.kth.faisalo.webappdemo2.db;
+package se.kth.faisalo.webappdemo2.db;
 
 import se.kth.faisalo.webappdemo2.bo.Cart;
 import se.kth.faisalo.webappdemo2.bo.Item;
@@ -10,28 +10,58 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/*public class Dbcart extends Cart {
+public class Dbcart extends Cart {
     protected Dbcart(int cartId, List<Item> cartList) {
         super(cartId, cartList);
     }
 
-    public static List<Cart> searchCarts(){
-        List<Cart> carts= new ArrayList<Cart>();
+    public static List<Item> getItemsInCart(int cartId) {
+        List<Item> cart = new ArrayList<Item>();
         try {
             Connection connection = DbManager.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet set = statement.executeQuery("select * from cart");
+
+            String query = "SELECT i.idItem, i.Itemname, i.Itemprice, i.Itemdescription, i.Itemtype " +
+                    "FROM item i " +
+                    "JOIN cart_item ci ON i.idItem = ci.idItem " +
+                    "WHERE ci.idcart = " + cartId;
+
+            ResultSet set = statement.executeQuery(query);
+
             while (set.next()) {
-                int id = set.getInt("idcart");
-                int iduser = set.getInt("iduser");
-                carts.add(new ());
+                int id = set.getInt("idItem");
+                String name = set.getString("Itemname");
+                int price = set.getInt("Itemprice");
+                String description = set.getString("Itemdescription");
+                String type = set.getString("Itemtype");
+
+                cart.add(new DbItem(name, type, description, id, price));
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return items;
+
+        return cart;
     }
 
+    public static int getCartIdForUser(int userId) {
+        int cartId = -1;
 
+        try {
+            Connection connection = DbManager.getConnection();
+            Statement statement = connection.createStatement();
+            String query = "SELECT idcart FROM cart WHERE iduser = " + userId;
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                cartId = resultSet.getInt("idcart");
+            }
 
-}*/
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cartId;
+    }
+}
+

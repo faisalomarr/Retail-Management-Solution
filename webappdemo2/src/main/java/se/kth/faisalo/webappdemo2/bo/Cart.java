@@ -1,17 +1,21 @@
 package se.kth.faisalo.webappdemo2.bo;
 
+import se.kth.faisalo.webappdemo2.db.DbItem;
+import se.kth.faisalo.webappdemo2.db.Dbcart;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/*public class Cart {
+public class Cart {
     private int cartId;
 
+    private List<Item> cartList;
 
 
 
     protected Cart (int cartId, List<Item> cartList){
         this.cartId=cartId;
-        this.cartList=new ArrayList<>();
+        this.cartList=cartList;
     }
 
     public int getCartId() {
@@ -30,5 +34,9 @@ import java.util.List;
         this.cartList = cartList;
     }
 
+    static public List<Item> getItmesInCart(int cartId){
+        return Dbcart.getItemsInCart(cartId);
+    }
 
-}*/
+
+}
