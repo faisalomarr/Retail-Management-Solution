@@ -8,6 +8,7 @@ public class User {
     private String username;
     private String password;
     private int userId;
+    public enum Role {KUND, ADMIN, LAGERPERSONAL}
 
     public User(String username, String password, int userId) {
         this.userId = userId;

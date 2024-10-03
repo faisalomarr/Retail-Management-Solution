@@ -30,6 +30,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<h2>Welcome, " + username + "!</h2>");
             out.println("</body></html>");
             out.println("<a href='cart.jsp'>Go to cart</a>");
+            out.println("</body>or</html>");
+            out.println("<a href='additems.jsp'>add items</a>");
+
+
         } else {
             // Failed login
             response.setContentType("text/html");
