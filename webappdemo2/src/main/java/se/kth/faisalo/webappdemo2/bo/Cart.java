@@ -3,10 +3,10 @@ package se.kth.faisalo.webappdemo2.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+/*public class Cart {
     private int cartId;
 
-    private List<Item> cartList;
+
 
 
     protected Cart (int cartId, List<Item> cartList){
@@ -30,5 +30,5 @@ public class Cart {
         this.cartList = cartList;
     }
 
-    
-}
+
+}*/

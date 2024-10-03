@@ -1,6 +1,8 @@
 <%@ page import="se.kth.faisalo.webappdemo2.bo.Item" %>
 <%@ page import="java.util.List" %>
 <%@ page import="se.kth.faisalo.webappdemo2.db.DbItem" %>
+<%@ page import="se.kth.faisalo.webappdemo2.ui.ItemInfo" %>
+<%@ page import="se.kth.faisalo.webappdemo2.bo.Handler" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -13,24 +15,21 @@
 
 <%
     // Fetch the list of items from the database
-    List<Item> items = DbItem.searchItems();
+   List<ItemInfo> itemInfos = Handler.getItems();
 %>
 
 <table border="1">
     <tr>
-        <th>ID</th>
+
         <th>Name</th>
-        <th>Type</th>
+
         <th>Description</th>
-        <th>Price</th>
+
     </tr>
-    <% for (Item item : items) { %>
+    <% for (ItemInfo item : itemInfos) { %>
     <tr>
-        <td><%= item.getId() %></td>
         <td><%= item.getName() %></td>
-        <td><%= item.getType() %></td>
         <td><%= item.getDescription() %></td>
-        <td><%= item.getPrice() %></td>
     </tr>
     <% } %>
 </table>
