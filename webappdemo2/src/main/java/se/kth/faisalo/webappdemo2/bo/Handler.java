@@ -53,4 +53,8 @@ public class Handler {
     public static int getCartIdFromUser(UserInfo userInfo) {
         return Cart.getCartIdFromUser(userInfo.getUserId());
     }
+
+    public static boolean addToCart(int cartId, int itemId){
+        return Cart.addToCart(cartId,itemId);
+    }
 }

@@ -34,7 +34,7 @@ public class AddToCartServlet extends HttpServlet {
 
 
         // Add the item to the cart using the Dbcart.addToCart() method
-        boolean success = Dbcart.addToCart(cartId, itemId);
+        boolean success = Handler.addToCart(cartId, itemId);
 
         if (success) {
             // Redirect the user to the cart page to view their cart

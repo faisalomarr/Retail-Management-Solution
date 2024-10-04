@@ -18,6 +18,7 @@ public class Cart {
         this.cartList=cartList;
     }
 
+
     public int getCartId() {
         return cartId;
     }
@@ -40,6 +41,10 @@ public class Cart {
 
     static public int getCartIdFromUser(int userid){
         return Dbcart.getCartIdForUser(userid);
+    }
+
+    static public boolean addToCart(int cartId, int itemId) {
+        return Dbcart.addToCart(cartId,itemId);
     }
 
 }

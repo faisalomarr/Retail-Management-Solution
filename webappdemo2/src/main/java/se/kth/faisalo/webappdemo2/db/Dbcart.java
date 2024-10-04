@@ -64,7 +64,7 @@ public class Dbcart extends Cart {
         return cartId;
     }
 
-    public static Boolean addToCart(int cartId, int itemId) {
+    public static boolean addToCart(int cartId, int itemId) {
         try {
             // Get database connection
             Connection connection = DbManager.getConnection();
