@@ -20,13 +20,15 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserInfo userInfo=Handler.ValidUser(username,password, Handler.getUsers());
-
         if (userInfo!=null) {
             // Successful login
+            int cartIdFromUser =Handler.getCartIdFromUser(userInfo);
+
+
             HttpSession session = request.getSession();
             session.setAttribute("userId",userInfo.getUserId());
             session.setAttribute("role",userInfo.getRole());
-            session.setAttribute("cartId", userInfo.getCartId());
+            session.setAttribute("cartId", cartIdFromUser);
 
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
@@ -44,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                 out.println("<a href='PersonalPage.jsp'>Personal Page</a>");
             }
 
-            System.out.println("halååååååååå här cartid" + userInfo.getCartId());
+            System.out.println("halååååååååå här cartid" + cartIdFromUser);
             System.out.println("halååååååååå här userId" + userInfo.getUserId());
 
 

@@ -38,5 +38,8 @@ public class Cart {
         return Dbcart.getItemsInCart(cartId);
     }
 
+    static public int getCartIdFromUser(int userid){
+        return Dbcart.getCartIdForUser(userid);
+    }
 
 }

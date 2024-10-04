@@ -14,7 +14,7 @@
 
 <%
   // Assuming you have a cartId variable passed from somewhere (e.g., session or request)
-  int userId = (Integer) session.getAttribute("userId");
+  int userId = (Integer) session.getAttribute("cartId");
   // Fetch the list of items in the cart
   List<ItemInfo> itemInfos = Handler.getItemsInCart(userId);
 %>

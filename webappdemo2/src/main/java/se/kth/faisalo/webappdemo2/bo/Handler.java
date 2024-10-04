@@ -32,7 +32,7 @@ public class Handler {
         List<User> users = User.getUsers();
         List<UserInfo> userInfos = new ArrayList<>();
         for (User user : users) {
-            userInfos.add(new UserInfo(user.getUsername(),user.getPassword(), user.getUserId(),  user.getUserId(), user.getRole()));
+            userInfos.add(new UserInfo(user.getUsername(),user.getPassword(), user.getUserId(),user.getRole()));
         }
         return userInfos;
     }
@@ -50,11 +50,7 @@ public class Handler {
         return User.createUser(userInfo.getUsername(), userInfo.getPassword(), userInfo.getUserId(), userInfo.getRole());
     }
 
-    public static int getCartIdForUser(int userId, List<UserInfo> users) {
-        for (UserInfo userInfo : users){
-            if (userInfo.getUserId()==userId)
-                return userInfo.getCartId();
-        }
-        return -1;
+    public static int getCartIdFromUser(UserInfo userInfo) {
+        return Cart.getCartIdFromUser(userInfo.getUserId());
     }
 }

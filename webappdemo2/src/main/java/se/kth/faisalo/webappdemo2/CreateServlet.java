@@ -26,7 +26,7 @@ public class CreateServlet extends HttpServlet {
         User.Role role = User.Role.valueOf(roleString.toUpperCase());
 
         // Create a UserInfo object (UI layer)
-        UserInfo userInfo = new UserInfo(username, password, -10,-10, role);
+        UserInfo userInfo = new UserInfo(username, password, -10,role);
 
         // Call the business logic to create the user
         boolean userCreated = Handler.createUser(userInfo);

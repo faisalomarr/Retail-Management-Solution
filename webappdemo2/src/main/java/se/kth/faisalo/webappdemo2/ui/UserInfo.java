@@ -6,15 +6,14 @@ public class UserInfo {
     private String username;
     private String password;
     private int userId;
-    private int cartId;
+
 
     private User.Role role;
 
-    public UserInfo(String username, String password, int userId, int cartId, User.Role role) {
+    public UserInfo(String username, String password, int userId,User.Role role) {
         this.username = username;
         this.password = password;
         this.userId= userId;
-        this.cartId= cartId;
         this.role= role;
     }
 
@@ -42,13 +41,6 @@ public class UserInfo {
         this.userId = userId;
     }
 
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cardId) {
-        this.cartId = cardId;
-    }
 
     public User.Role getRole() {
         return role;
