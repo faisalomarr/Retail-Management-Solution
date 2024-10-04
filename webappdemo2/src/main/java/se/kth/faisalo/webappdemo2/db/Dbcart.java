@@ -34,8 +34,9 @@ public class Dbcart extends Cart {
                 int price = set.getInt("Itemprice");
                 String description = set.getString("Itemdescription");
                 String type = set.getString("Itemtype");
+                int quantity = set.getInt("quantity");
 
-                cart.add(new DbItem(name, type, description, id, price));
+                cart.add(new DbItem(name, type, description, id, price,quantity));
             }
 
         } catch (SQLException e) {

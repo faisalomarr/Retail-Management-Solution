@@ -13,7 +13,7 @@ public class Handler {
         List<Item> items = Item.searchItems();
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : items) {
-            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId()));
+            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity()));
         }
         return itemInfos;
 
@@ -23,7 +23,7 @@ public class Handler {
         List<Item> itmes = Cart.getItmesInCart(idCart);
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : itmes) {
-            itemInfos.add(new ItemInfo(item.getName(), item.getDescription(),item.getId()));
+            itemInfos.add(new ItemInfo(item.getName(), item.getDescription(),item.getId(),item.getQuantity()));
         }
         return itemInfos;
     }

@@ -4,11 +4,12 @@ public class ItemInfo {
     private String name;
     private String description;
     private int id;
-
-    public ItemInfo(String name, String description, int id) {
+    private int quantity;
+    public ItemInfo(String name, String description, int id, int quantity) {
         this.name=name;
         this.description=description;
         this.id=id;
+        this.quantity=quantity;
     }
 
     public String getName() {
@@ -33,5 +34,13 @@ public class ItemInfo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -23,11 +23,17 @@
         <td><%= item.getName() %></td>
         <td><%= item.getDescription() %></td>
         <td>
-            <!-- Add to Cart button sends itemId to the addToCartServlet -->
+            <% if (item.getQuantity() > 0) { %>
+            <!-- Add to Cart button only shows if item quantity is greater than 0 -->
             <form action="addToCartServlet" method="post">
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="submit" value="Add to Cart">
             </form>
+            <% } else { %>
+            <!-- Show message when the item is out of stock -->
+            <p>Out of Stock</p>
+            <% } %>
+
         </td>
     </tr>
     <% } %>

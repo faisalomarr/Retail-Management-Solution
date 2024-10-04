@@ -26,12 +26,15 @@
         <th>Name</th>
 
         <th>Description</th>
+        <th>Quantity</th>
+
 
     </tr>
     <% for (ItemInfo item : itemInfos) { %>
     <tr>
         <td><%= item.getName() %></td>
         <td><%= item.getDescription() %></td>
+        <td><%= item.getQuantity() %></td>
     </tr>
     <% } %>
 </table>

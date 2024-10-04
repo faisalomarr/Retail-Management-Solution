@@ -11,13 +11,15 @@ public class Item {
     private String description;
     private int id;
     private int price;
+    private int quantity;
 
-    protected Item(String name, String type, String description, int id, int price) {
+    protected Item(String name, String type, String description, int id, int price, int quantity) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.id = id;
         this.price = price;
+        this.quantity = quantity;
     }
 
     static public List<Item> searchItems(){
@@ -62,5 +64,13 @@ public class Item {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

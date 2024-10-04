@@ -11,6 +11,10 @@ import java.util.List;
 
 public class DbItem extends Item {
 
+    protected DbItem(String name, String type, String description, int id, int price, int quantity) {
+        super(name, type, description, id, price, quantity);
+    }
+
     public static List<Item> searchItems(){
         List<Item> items = new ArrayList<Item>();
         try {
@@ -23,7 +27,8 @@ public class DbItem extends Item {
                 int price = set.getInt("Itemprice");
                 String description = set.getString("Itemdescription");
                 String type = set.getString("Itemtype");
-                items.add(new DbItem(name,type,description,id,price));
+                int quantity = set.getInt("quantity");
+                items.add(new DbItem(name,type,description,id,price,quantity));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -40,7 +45,5 @@ public class DbItem extends Item {
 
 
 
-    protected DbItem(String name, String type, String description, int id, int price) {
-        super(name, type, description, id, price);
-    }
+
 }
