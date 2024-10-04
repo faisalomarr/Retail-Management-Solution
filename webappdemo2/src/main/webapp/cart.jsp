@@ -35,5 +35,6 @@
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 <a href="Login.jsp">Go to Login Page</a> <!-- Reference to Login.jsp -->
+<a href="additems.jsp">Go to addItems Page</a>
 </body>
 </html>

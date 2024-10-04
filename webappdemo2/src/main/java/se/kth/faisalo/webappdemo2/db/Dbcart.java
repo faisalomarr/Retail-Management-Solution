@@ -63,5 +63,26 @@ public class Dbcart extends Cart {
 
         return cartId;
     }
+
+    public static Boolean addToCart(int cartId, int itemId) {
+        try {
+            // Get database connection
+            Connection connection = DbManager.getConnection();
+            Statement statement = connection.createStatement();
+
+            // SQL query to insert the item into the cart
+            String query = "INSERT INTO cart_item (idcart, idItem) VALUES (" + cartId + ", " + itemId + ")";
+
+            // Execute the query
+            int rowsAffected = statement.executeUpdate(query);
+
+            // If rowsAffected > 0, it means the insert was successful
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Return false in case of an error
+        }
+    }
 }
 

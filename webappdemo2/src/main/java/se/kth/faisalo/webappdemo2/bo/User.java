@@ -10,10 +10,12 @@ public class User {
     private int userId;
     public enum Role {KUND, ADMIN, LAGERPERSONAL}
 
-    public User(String username, String password, int userId) {
+    private Role role;
+    public User(String username, String password, int userId, Role role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.role=role;
     }
 
     public String getUsername() {
@@ -42,6 +44,18 @@ public class User {
 
     static public List<User> getUsers() {
         return DBuser.ListUsers();
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public static boolean createUser(String username, String password, int userId, Role role) {
+        return DBuser.createUser(username, password, userId, role);
     }
 
     static public boolean checkUser(String username, String password) {

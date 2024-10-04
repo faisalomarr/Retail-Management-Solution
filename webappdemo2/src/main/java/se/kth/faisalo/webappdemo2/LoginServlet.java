@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import se.kth.faisalo.webappdemo2.bo.Handler;
+import se.kth.faisalo.webappdemo2.bo.User;
 import se.kth.faisalo.webappdemo2.db.DBuser;
 import se.kth.faisalo.webappdemo2.ui.UserInfo;
 
@@ -18,12 +19,15 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        int userId =Handler.ValidUser(username,password, Handler.getUsers());
+        UserInfo userInfo=Handler.ValidUser(username,password, Handler.getUsers());
 
-        if (userId!=-1) {
+        if (userInfo!=null) {
             // Successful login
             HttpSession session = request.getSession();
-            session.setAttribute("userId",userId);
+            session.setAttribute("userId",userInfo.getUserId());
+            session.setAttribute("role",userInfo.getRole());
+            session.setAttribute("cartId", userInfo.getCartId());
+
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
@@ -32,6 +36,17 @@ public class LoginServlet extends HttpServlet {
             out.println("<a href='cart.jsp'>Go to cart</a>");
             out.println("</body>or</html>");
             out.println("<a href='additems.jsp'>add items</a>");
+
+            if(userInfo.getRole() == User.Role.ADMIN){
+                out.println("<a href='AdminPage.jsp'>Admin Page</a>");
+            }
+            if(userInfo.getRole() == User.Role.LAGERPERSONAL){
+                out.println("<a href='PersonalPage.jsp'>Personal Page</a>");
+            }
+
+            System.out.println("halååååååååå här cartid" + userInfo.getCartId());
+            System.out.println("halååååååååå här userId" + userInfo.getUserId());
+
 
 
         } else {
