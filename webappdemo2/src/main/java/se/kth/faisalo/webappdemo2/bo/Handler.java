@@ -57,4 +57,8 @@ public class Handler {
     public static boolean addToCart(int cartId, int itemId){
         return Cart.addToCart(cartId,itemId);
     }
+
+    public static boolean purchaseItemsInCart(int cartId){
+        return Cart.purchaseItemsInCart(cartId);
+    }
 }

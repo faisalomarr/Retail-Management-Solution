@@ -3,10 +3,7 @@ package se.kth.faisalo.webappdemo2.db;
 import se.kth.faisalo.webappdemo2.bo.Cart;
 import se.kth.faisalo.webappdemo2.bo.Item;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class Dbcart extends Cart {
             Connection connection = DbManager.getConnection();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT i.idItem, i.Itemname, i.Itemprice, i.Itemdescription, i.Itemtype " +
+            String query = "SELECT i.idItem, i.Itemname, i.Itemprice, i.Itemdescription, i.Itemtype, i.quantity " +
                     "FROM item i " +
                     "JOIN cart_item ci ON i.idItem = ci.idItem " +
                     "WHERE ci.idcart = " + cartId;
@@ -85,5 +82,58 @@ public class Dbcart extends Cart {
             return false;  // Return false in case of an error
         }
     }
+
+    public static boolean purchaseItemsInCart(int cartId) {
+        Connection connection = null;
+        try {
+            connection = DbManager.getConnection();
+            connection.setAutoCommit(false);  // Begin transaction
+
+            // Get all item IDs in the cart
+            String getItemsQuery = "SELECT idItem FROM cart_item WHERE idcart = ?";
+            PreparedStatement getItemsStmt = connection.prepareStatement(getItemsQuery);
+            getItemsStmt.setInt(1, cartId);
+            ResultSet rs = getItemsStmt.executeQuery();
+
+            // Prepare update query to reduce item quantity
+            String updateItemQuery = "UPDATE item SET quantity = quantity - 1 WHERE idItem = ? AND quantity > 0";
+            PreparedStatement updateItemStmt = connection.prepareStatement(updateItemQuery);
+
+            // Process each item
+            while (rs.next()) {
+                int itemId = rs.getInt("idItem");
+
+                // Set the itemId for the update query and execute it
+                updateItemStmt.setInt(1, itemId);
+                int rowsAffected = updateItemStmt.executeUpdate();
+
+                // If no rows were affected, it means the item is out of stock
+                if (rowsAffected == 0) {
+                    connection.rollback();  // Rollback the transaction if any item is out of stock
+                    return false;
+                }
+            }
+
+            connection.commit();  // Commit the transaction if all updates were successful
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback();  // Rollback the transaction in case of an error
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            return false;
+        } finally {
+            try {
+                if (connection != null) connection.setAutoCommit(true);  // Reset auto-commit to true
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
 

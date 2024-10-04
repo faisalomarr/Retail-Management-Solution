@@ -47,4 +47,8 @@ public class Cart {
         return Dbcart.addToCart(cartId,itemId);
     }
 
+    static public boolean purchaseItemsInCart(int cartId){
+        return Dbcart.purchaseItemsInCart(cartId);
+    }
+
 }
