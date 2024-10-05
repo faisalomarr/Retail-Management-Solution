@@ -1,5 +1,6 @@
 package se.kth.faisalo.webappdemo2.bo;
 
+import se.kth.faisalo.webappdemo2.db.Dbcart;
 import se.kth.faisalo.webappdemo2.ui.CartInfo;
 import se.kth.faisalo.webappdemo2.ui.ItemInfo;
 import se.kth.faisalo.webappdemo2.ui.UserInfo;
@@ -13,17 +14,27 @@ public class Handler {
         List<Item> items = Item.searchItems();
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : items) {
-            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity()));
+            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()))
         }
         return itemInfos;
 
     }
 
+    public static List<CartInfo> getCarts() {
+        List<Cart> carts = Cart.ListCarts();
+        List<CartInfo> cartInfos = new ArrayList<>();
+        for (Cart cart: carts) {
+            cartInfos.add(new CartInfo(cart.getCartId(),cart.getUserId(),cart.getStatus(),cart.getPackedstatus()));
+        }
+        return cartInfos;
+
+    }
+
     public static List<ItemInfo> getItemsInCart(int idCart) {
-        List<Item> itmes = Cart.getItmesInCart(idCart);
+        List<Item> itmes = Cart.getItemsInCart(idCart);
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : itmes) {
-            itemInfos.add(new ItemInfo(item.getName(), item.getDescription(),item.getId(),item.getQuantity()));
+            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()))
         }
         return itemInfos;
     }
@@ -61,4 +72,18 @@ public class Handler {
     public static boolean purchaseItemsInCart(int cartId){
         return Cart.purchaseItemsInCart(cartId);
     }
+
+    public static boolean packOrder(int cartid) {
+        return Cart.packCart(cartid);
+    }
+
+
+    public static boolean addItemToStock(String name, String type, String description, int price, int quantity) {
+        return Item.addItemToStock(name,type,description,price,quantity);
+    }
+
+    public static boolean editItem(int itemId, String name, String type, String description, int price, int quantity){
+        return Item.editItem(itemId, name, type,description,price,quantity);
+    }
+
 }

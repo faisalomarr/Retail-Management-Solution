@@ -1,16 +1,21 @@
 package se.kth.faisalo.webappdemo2.ui;
 
+import se.kth.faisalo.webappdemo2.bo.Cart;
 import se.kth.faisalo.webappdemo2.bo.Item;
 
 import java.util.List;
 
 public class CartInfo {
     private int idCart;
-    private List<ItemInfo> cartList;
+    private  int idUser;
+    private Cart.Status status;
+    private  Cart.Packedstatus packedstatus;
 
-    public CartInfo(int idCart, List<ItemInfo> cartList) {
+    public CartInfo(int idCart, int idUser, Cart.Status status, Cart.Packedstatus packedstatus) {
         this.idCart = idCart;
-        this.cartList = cartList;
+        this.idUser = idUser;
+        this.status = status;
+        this.packedstatus = packedstatus;
     }
 
     public int getIdCart() {
@@ -21,11 +26,27 @@ public class CartInfo {
         this.idCart = idCart;
     }
 
-    public List<ItemInfo> getCartList() {
-        return cartList;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setCartList(List<ItemInfo> cartList) {
-        this.cartList = cartList;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public Cart.Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Cart.Status status) {
+        this.status = status;
+    }
+
+    public Cart.Packedstatus getPackedstatus() {
+        return packedstatus;
+    }
+
+    public void setPackedstatus(Cart.Packedstatus packedstatus) {
+        this.packedstatus = packedstatus;
     }
 }
