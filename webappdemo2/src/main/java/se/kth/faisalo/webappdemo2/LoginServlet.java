@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
             // Successful login
             int cartIdFromUser =Handler.getCartIdFromUser(userInfo);
 
-
             HttpSession session = request.getSession();
             session.setAttribute("userId",userInfo.getUserId());
             session.setAttribute("role",userInfo.getRole());
@@ -32,18 +31,30 @@ public class LoginServlet extends HttpServlet {
 
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h2>Welcome, " + username + "!</h2>");
-            out.println("</body></html>");
-            out.println("<a href='cart.jsp'>Go to cart</a>");
-            out.println("</body>or</html>");
-            out.println("<a href='additems.jsp'>add items</a>");
 
-            if(userInfo.getRole() == User.Role.ADMIN){
-                out.println("<a href='AdminPage.jsp'>Admin Page</a>");
+            if (userInfo.getRole() == User.Role.KUND) {
+                out.println("<html><body>");
+                out.println("<h2>Welcome, " + username + "!</h2>");
+                out.println("</body></html>");
+                out.println("<a href='cart.jsp'>Go to cart</a>");
+                out.println("</body>or</html>");
+                out.println("<a href='additems.jsp'>add items</a>");
             }
+
             if(userInfo.getRole() == User.Role.LAGERPERSONAL){
                 out.println("<a href='PersonalPage.jsp'>Personal Page</a>");
+            }
+
+            if(userInfo.getRole() == User.Role.ADMIN){
+                out.println("<html><body>");
+                out.println("<h2>Welcome Admin , " + username + "!</h2>");
+                out.println("</body></html>");
+                out.println("<a href='viewitems.jsp'>view itmes in stock </a>");
+                out.println("<a href='AddItemToStock.jsp'>Add new items to the Stock</a>");
+                out.println("<a href='editItems.jsp'>Edit items</a>");
+
+
+
             }
 
             System.out.println("halååååååååå här cartid" + cartIdFromUser);

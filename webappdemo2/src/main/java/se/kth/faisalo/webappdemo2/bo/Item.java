@@ -26,6 +26,14 @@ public class Item {
         return DbItem.searchItems();
     }
 
+    public static boolean addItemToStock(String name, String type, String description, int price, int quantity) {
+        return DbItem.addItemToStock(name, type, description, price, quantity);
+    }
+
+    public static boolean editItem(int itemId, String name, String type, String description, int price, int quantity) {
+       return DbItem.editItem(itemId, name, type,description,price,quantity);
+    }
+
     public String getName() {
         return name;
     }

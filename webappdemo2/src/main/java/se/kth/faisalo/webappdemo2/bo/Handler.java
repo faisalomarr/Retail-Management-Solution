@@ -14,7 +14,7 @@ public class Handler {
         List<Item> items = Item.searchItems();
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : items) {
-            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()))
+            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()));
         }
         return itemInfos;
 
@@ -34,7 +34,7 @@ public class Handler {
         List<Item> itmes = Cart.getItemsInCart(idCart);
         List<ItemInfo> itemInfos = new ArrayList<>();
         for (Item item : itmes) {
-            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()))
+            itemInfos.add(new ItemInfo(item.getName(),item.getDescription(),item.getId(),item.getQuantity(), item.getPrice(), item.getType()));
         }
         return itemInfos;
     }
@@ -85,5 +85,4 @@ public class Handler {
     public static boolean editItem(int itemId, String name, String type, String description, int price, int quantity){
         return Item.editItem(itemId, name, type,description,price,quantity);
     }
-
 }

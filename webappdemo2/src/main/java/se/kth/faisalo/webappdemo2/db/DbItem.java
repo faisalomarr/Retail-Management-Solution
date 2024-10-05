@@ -2,10 +2,7 @@ package se.kth.faisalo.webappdemo2.db;
 
 import se.kth.faisalo.webappdemo2.bo.Item;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +33,50 @@ public class DbItem extends Item {
         return items;
     }
 
+    public static boolean addItemToStock(String name, String type, String description, int price, int quantity) {
+        try {
+            // Get the database connection
+            Connection connection = DbManager.getConnection();
+            Statement statement = connection.createStatement();
 
+            // SQL query for inserting a new item
+            String query = "INSERT INTO item (Itemname, Itemtype, Itemdescription, Itemprice, quantity) " +
+                    "VALUES ('" + name + "', '" + type + "', '" + description + "', " + price + ", " + quantity + ")";
 
+            // Execute the query and check how many rows were affected
+            int rowsAffected = statement.executeUpdate(query);
 
+            // Return true if at least one row was inserted, indicating success
+            return rowsAffected > 0;
 
+        } catch (SQLException e) {
+            // Print the error and return false in case of an exception
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    public static boolean editItem(int itemId, String name, String type, String description, int price, int quantity) {
+        try {
+            // Get the database connection
+            Connection connection = DbManager.getConnection();
+            Statement statement = connection.createStatement();
 
+            // SQL query for updating an existing item
+            String query = "UPDATE item SET Itemname = '" + name + "', Itemtype = '" + type + "', Itemdescription = '" + description +
+                    "', Itemprice = " + price + ", quantity = " + quantity + " WHERE idItem = " + itemId;
 
+            // Execute the query and check how many rows were affected
+            int rowsAffected = statement.executeUpdate(query);
 
+            // Return true if at least one row was updated
+            return rowsAffected > 0;
 
+        } catch (SQLException e) {
+            // Print the error and return false in case of an exception
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
