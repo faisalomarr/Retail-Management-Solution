@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import se.kth.faisalo.webappdemo2.db.Dbcart;
+import se.kth.faisalo.webappdemo2.ui.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,27 +27,13 @@ public class AddToCartServlet extends HttpServlet {
         // Retrieve the user's session
         HttpSession session = request.getSession();
 
-        // Get userId from session
-        Integer userId = (Integer) session.getAttribute("userId");
-
-        // Retrieve the cartId from session
+        // Get userId and cartId from session
         Integer cartId = (Integer) session.getAttribute("cartId");
 
+        // Initialize the controller
+        Controller controller = new Controller();
 
-        // Add the item to the cart using the Dbcart.addToCart() method
-        boolean success = Handler.addToCart(cartId, itemId);
-
-        if (success) {
-            // Redirect the user to the cart page to view their cart
-            response.sendRedirect("cart.jsp");
-        } else {
-            // Handle the failure case, such as showing an error message
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h2>Login failed. not able to put in cart.</h2>");
-            out.println("<a href='cart.jsp'>Try again</a>");
-            out.println("</body></html>");
-        };
+        // Pass the cartId and itemId to the controller to handle the business logic
+        controller.addItemToCart(cartId, itemId, response);
     }
 }

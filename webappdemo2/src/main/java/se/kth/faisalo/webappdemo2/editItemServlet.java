@@ -8,11 +8,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import se.kth.faisalo.webappdemo2.ui.Controller;
+
 import java.io.IOException;
 
 @WebServlet("/updateItemsServlet")
 public class editItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Controller controller = new Controller();
+
         // Iterate over all items and update them based on the input values
         for (int itemId = 1; itemId <= 100; itemId++) { // Assuming max item ID is 100
             String itemName = request.getParameter("name_" + itemId);
@@ -28,11 +33,10 @@ public class editItemServlet extends HttpServlet {
                 int quantity = Integer.parseInt(itemQuantity);
 
                 // Call the update method from DbItem class
-                Handler.editItem(itemId, itemName, itemType, itemDescription, price, quantity);
+                controller.editItem(itemId, itemName, itemType, itemDescription, price, quantity, response);
             }
         }
-
-        // Redirect back to the edit items page or a success page
         response.sendRedirect("editItems.jsp");
+
     }
 }

@@ -1,6 +1,6 @@
 package se.kth.faisalo.webappdemo2;
 
-import se.kth.faisalo.webappdemo2.bo.Handler;
+import se.kth.faisalo.webappdemo2.ui.Controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/AddToStockServlet")
 public class AddToStockServlet extends HttpServlet {
@@ -21,24 +20,10 @@ public class AddToStockServlet extends HttpServlet {
         int price = Integer.parseInt(request.getParameter("price"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        // Call Handler to add the item to the database
-        boolean success = Handler.addItemToStock(name, type, description, price, quantity);
+        // Initialize the controller
+        Controller controller = new Controller();
 
-        // Respond with success or failure message
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-
-        if (success) {
-            out.println("<html><body>");
-            out.println("<h2>Item added successfully!</h2>");
-            out.println("<a href='AddItemToStock.jsp'>Add another item</a>");
-            out.println("<a href='viewitems.jsp'>View items in stock</a>");
-            out.println("</body></html>");
-        } else {
-            out.println("<html><body>");
-            out.println("<h2>Failed to add item. Please try again.</h2>");
-            out.println("<a href='AddItemToStock.jsp'>Try again</a>");
-            out.println("</body></html>");
-        }
+        // Delegate the logic to the controller
+        controller.addItemToStock(name, type, description, price, quantity, response);
     }
 }

@@ -1,14 +1,14 @@
 package se.kth.faisalo.webappdemo2;
 
-import java.io.*;
-
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-import se.kth.faisalo.webappdemo2.bo.Handler;
-import se.kth.faisalo.webappdemo2.bo.User;
-import se.kth.faisalo.webappdemo2.db.DBuser;
-import se.kth.faisalo.webappdemo2.ui.UserInfo;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import se.kth.faisalo.webappdemo2.ui.Controller;
+
+import java.io.IOException;
 
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
@@ -19,57 +19,10 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        UserInfo userInfo=Handler.ValidUser(username,password, Handler.getUsers());
-        if (userInfo!=null) {
-            // Successful login
-            int cartIdFromUser =Handler.getCartIdFromUser(userInfo);
+        // Initialize the controller
+        Controller controller = new Controller();
 
-            HttpSession session = request.getSession();
-            session.setAttribute("userId",userInfo.getUserId());
-            session.setAttribute("role",userInfo.getRole());
-            session.setAttribute("cartId", cartIdFromUser);
-
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-
-            if (userInfo.getRole() == User.Role.KUND) {
-                out.println("<html><body>");
-                out.println("<h2>Welcome, " + username + "!</h2>");
-                out.println("</body></html>");
-                out.println("<a href='cart.jsp'>Go to cart</a>");
-                out.println("</body>or</html>");
-                out.println("<a href='additems.jsp'>add items</a>");
-            }
-
-            if(userInfo.getRole() == User.Role.LAGERPERSONAL){
-                out.println("<a href='PersonalPage.jsp'>Personal Page</a>");
-            }
-
-            if(userInfo.getRole() == User.Role.ADMIN){
-                out.println("<html><body>");
-                out.println("<h2>Welcome Admin , " + username + "!</h2>");
-                out.println("</body></html>");
-                out.println("<a href='viewitems.jsp'>view itmes in stock </a>");
-                out.println("<a href='AddItemToStock.jsp'>Add new items to the Stock</a>");
-                out.println("<a href='editItems.jsp'>Edit items</a>");
-
-
-
-            }
-
-            System.out.println("halååååååååå här cartid" + cartIdFromUser);
-            System.out.println("halååååååååå här userId" + userInfo.getUserId());
-
-
-
-        } else {
-            // Failed login
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h2>Login failed. Invalid username or password.</h2>");
-            out.println("<a href='index.jsp'>Try again</a>");
-            out.println("</body></html>");
-        }
+        // Delegate the login logic to the controller
+        controller.handleLogin(username, password, request, response);
     }
 }

@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import se.kth.faisalo.webappdemo2.bo.Handler;
+import se.kth.faisalo.webappdemo2.ui.Controller;
 
 import java.io.IOException;
 
@@ -13,17 +13,13 @@ import java.io.IOException;
 public class PackOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve the cart ID from the request
         int cartid = Integer.parseInt(request.getParameter("order"));
 
-        // Update order status to 'packed'
-        boolean success = Handler.packOrder(cartid);
+        // Initialize the controller
+        Controller controller = new Controller();
 
-        if (success) {
-            // Redirect to success page
-            response.sendRedirect("successPacked.jsp");
-        } else {
-            // Handle error and print message or redirect to an error page
-            response.getWriter().println("Failed to pack the order.");
-        }
+        // Pass the cart ID and response to the controller to handle the business logic
+        controller.packOrder(cartid, response);
     }
 }
