@@ -40,7 +40,6 @@
         <input type="submit" value="Pack Order">
     </form>
 </td>
-<a href="successPacked.jsp">Pack this order</a> <!-- Link to go back to the cart list -->
 
 </body>
 </html>

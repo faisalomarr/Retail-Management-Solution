@@ -16,17 +16,21 @@ public class Dbcart extends Cart {
 
     public static List<Item> getItemsInCart(int cartId) {
         List<Item> cart = new ArrayList<Item>();
+
         try {
             Connection connection = DbManager.getConnection();
-            Statement statement = connection.createStatement();
 
+            // Prepare query to retrieve all items associated with the cartId
             String query = "SELECT i.idItem, i.Itemname, i.Itemprice, i.Itemdescription, i.Itemtype, i.quantity " +
                     "FROM item i " +
                     "JOIN cart_item ci ON i.idItem = ci.idItem " +
                     "WHERE ci.idcart = " + cartId;
+            Statement statement = connection.createStatement();
 
+            // Execute query and process the result set
             ResultSet set = statement.executeQuery(query);
 
+            // Iterate over the result set and build the list of items in the cart
             while (set.next()) {
                 int id = set.getInt("idItem");
                 String name = set.getString("Itemname");
@@ -35,15 +39,20 @@ public class Dbcart extends Cart {
                 String type = set.getString("Itemtype");
                 int quantity = set.getInt("quantity");
 
+                // Add each item to the cart list
                 cart.add(new DbItem(name, type, description, id, price, quantity));
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            // Handle any SQL errors during the query execution
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving items in cart", e);
         }
 
+        // Return the list of items in the cart
         return cart;
     }
+
 
     public static int getCartIdForUser(int userId) {
         int cartId = -1;
@@ -179,9 +188,6 @@ public class Dbcart extends Cart {
 
 
     }
-
-
-
 
 
 

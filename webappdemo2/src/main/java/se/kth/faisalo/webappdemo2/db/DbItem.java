@@ -12,24 +12,36 @@ public class DbItem extends Item {
         super(name, type, description, id, price, quantity);
     }
 
-    public static List<Item> searchItems(){
+    public static List<Item> searchItems() {
         List<Item> items = new ArrayList<Item>();
+
         try {
             Connection connection = DbManager.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet set = statement.executeQuery("select * from item");
+
+            // Execute a query to retrieve all items from the "item" table
+            ResultSet set = statement.executeQuery("SELECT * FROM item");
+
+            // Loop through the result set and process each row
             while (set.next()) {
+                // Retrieve item details from the current row
                 int id = set.getInt("idItem");
                 String name = set.getString("Itemname");
                 int price = set.getInt("Itemprice");
                 String description = set.getString("Itemdescription");
                 String type = set.getString("Itemtype");
                 int quantity = set.getInt("quantity");
-                items.add(new DbItem(name,type,description,id,price,quantity));
+
+                // Add the retrieved item to the list of items
+                items.add(new DbItem(name, type, description, id, price, quantity));
             }
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving items from the database", e);
         }
+
+        // Return the list of items retrieved from the database
         return items;
     }
 

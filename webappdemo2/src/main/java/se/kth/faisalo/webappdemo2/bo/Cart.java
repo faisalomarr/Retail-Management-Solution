@@ -16,6 +16,7 @@ public class Cart {
         ACTIVE,
         FINALIZED
     }
+    // Enum to represent the cart IS packed
 
     public enum Packedstatus {
         PACKED,

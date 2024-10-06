@@ -53,12 +53,4 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
-    public static boolean createUser(String username, String password, int userId, Role role) {
-        return DBuser.createUser(username, password, userId, role);
-    }
-
-    static public boolean checkUser(String username, String password) {
-        return DBuser.checkUser(username, password);
-    }
 }

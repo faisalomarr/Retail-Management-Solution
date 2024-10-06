@@ -57,10 +57,6 @@ public class Handler {
         return null;
     }
 
-    public static boolean createUser(UserInfo userInfo) {
-        return User.createUser(userInfo.getUsername(), userInfo.getPassword(), userInfo.getUserId(), userInfo.getRole());
-    }
-
     public static int getCartIdFromUser(UserInfo userInfo) {
         return Cart.getCartIdFromUser(userInfo.getUserId());
     }

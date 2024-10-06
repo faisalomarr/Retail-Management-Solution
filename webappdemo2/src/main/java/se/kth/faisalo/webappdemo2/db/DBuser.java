@@ -14,27 +14,41 @@ public class DBuser extends User {
     }
 
     public static List<User> ListUsers() {
+        // Initialize a list to hold the retrieved users
         List<User> users = new ArrayList<User>();
+
         try {
             Connection connection = DbManager.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet set = statement.executeQuery("select * from user");
+
+            // Execute a query to retrieve all users from the "user" table
+            ResultSet set = statement.executeQuery("SELECT * FROM user");
+
+            // Loop through the result set and process each row
             while (set.next()) {
                 String username = set.getString("username");
                 String password = set.getString("password");
                 int userId = set.getInt("iduser");
                 String roleString = set.getString("role");
-                User.Role role=User.Role.valueOf(roleString.toUpperCase());
+
+                // Convert the role string to uppercase and map it to the User.Role enum
+                User.Role role = User.Role.valueOf(roleString.toUpperCase());
+
+                // Add the retrieved user to the list of users
                 users.add(new DBuser(username, password, userId, role));
             }
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving users from the database", e);
         }
+
+        // Return the list of users retrieved from the database
         return users;
     }
 
     public static int CheckUser(String username, String password) {
-        List<User> users = ListUsers();  // Assuming ListUsers fetches all users
+        List<User> users = ListUsers();
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return user.getUserId();  // Return the userId if the username and password match

@@ -32,7 +32,6 @@
 <body>
 
 <%
-  // Assuming you have a cartId variable passed from somewhere (e.g., session or request)
   int cartId = (Integer) session.getAttribute("cartId");
   // Fetch the list of items in the cart
   boolean purchaseState= Handler.purchaseItemsInCart(cartId);
